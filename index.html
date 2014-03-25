@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>basic example</title>
+<style>
+#qrcode {
+  position: relative;
+  top: 84px;
+  left: 69px;
+  width:115px;
+  height:115px;
+  z-index:100;
+}
+#paperlayout {
+  width: 480px; /* 960 */
+  height: 301px; /* 602 */
+  float: left;
+  position: relative;
+  top: -100px;
+}
+#key {
+  position: relative;
+  top: 116px;
+  left: -413px;
+  font-family: Verdana;
+  font-size: 12px;
+}
+  
+@media print
+{
+	.print { display: none; }
+}
+</style>
+</head>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+<script type="text/javascript" src="./jquery.qrcode.js"></script>
+<script type="text/javascript" src="./qrcode.js"></script>
+<div class="print">
+  <span class="label"><label>Your Zetacoin Address: </label></span>
+  <input tabindex="2" id="address" value="" onkeypress="if (event.keyCode == 13) gen_qr($(this).val());" type="text">
+  <span><input tabindex="3" id="generate" value="View" onclick="gen_qr($('#address').val());" type="button" /></span>
+  <input type="button" name="print" value="Print" id="paperprint" onclick="window.print();" />
+</div>
+
+<div id="paper"><div id="qrcode"></div><img id="paperlayout" src="paper.jpg" /><div id="key"></div></div>
+
+<script>
+  function gen_qr(address){
+    $('#qrcode').html("");
+    $('#qrcode').qrcode(
+      {width: 115,height: 115,text: address}
+    );
+    $('#key').text(address);
+  }
+</script>
+
+</body>
+</html>
